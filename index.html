@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Son Günmüş Gibi Yaşa</title>
+    <meta name="description" content="Dünya nüfusu, doğum ve ölüm istatistiklerini gerçek zamanlı olarak takip edin. Son günmüş gibi yaşamak için bir hatırlatıcı.">
+    <meta name="keywords" content="son günmüş gibi yaşa, dünya nüfusu, doğum istatistikleri, ölüm istatistikleri, gerçek zamanlı, demografik veriler, Türkiye nüfusu">
+    <meta name="author" content="Son Günmüş Gibi Yaşa">
+    
+    <!-- Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-XXXXXXXXXX');
+    </script>
+    
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Chart.js kütüphanesi -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- Favicon desteği -->
+    <link rel="icon" href="favicon/favicon.svg" type="image/svg+xml">
+    <link rel="apple-touch-icon" href="favicon/favicon.svg">
+    <link rel="shortcut icon" href="favicon/favicon.ico">
+    <meta name="theme-color" content="#64b3f4">
+</head>
+<body>
+    <div class="page-container">
+        <!-- Ülke sıralamaları için kenar çubuğu -->
+        <div class="sidebar collapsed">
+            <div class="sidebar-header">
+                <h3>Ülke Sıralamaları</h3>
+                <button id="toggle-sidebar" class="toggle-button">
+                    <i class="fas fa-chevron-left"></i>
+                </button>
+            </div>
+            <div class="sidebar-content">
+                <!-- Türkiye İstatistikleri Bölümü -->
+                <div class="turkey-stats">
+                    <h4><i class="fas fa-flag"></i> Türkiye İstatistikleri</h4>
+                    <div class="turkey-stats-grid">
+                        <div class="turkey-stat-item">
+                            <div class="stat-label">Nüfus</div>
+                            <div class="stat-value" id="turkey-population">84,680,273</div>
+                        </div>
+                        <div class="turkey-stat-item">
+                            <div class="stat-label">Doğum Oranı</div>
+                            <div class="stat-value">15.3‰</div>
+                        </div>
+                        <div class="turkey-stat-item">
+                            <div class="stat-label">Ölüm Oranı</div>
+                            <div class="stat-value">5.4‰</div>
+                        </div>
+                        <div class="turkey-stat-item">
+                            <div class="stat-label">Büyüme Hızı</div>
+                            <div class="stat-value">0.99%</div>
+                        </div>
+                    </div>
+                    <div class="turkey-live-stats">
+                        <div class="turkey-live-item">
+                            <div class="live-label">Bugün Doğanlar</div>
+                            <div class="live-value" id="turkey-births">0</div>
+                        </div>
+                        <div class="turkey-live-item">
+                            <div class="live-label">Bugün Ölenler</div>
+                            <div class="live-value" id="turkey-deaths">0</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="tab-container">
+                    <div class="tabs">
+                        <button class="tab-button active" data-tab="births">Doğumlar</button>
+                        <button class="tab-button" data-tab="deaths">Ölümler</button>
+                    </div>
+                    <div class="tab-content">
+                        <div id="births-tab" class="tab-pane active">
+                            <h4>En Yüksek Doğum Oranları</h4>
+                            <ul id="births-ranking" class="ranking-list">
+                                <li><span class="country">Nijer</span><span class="value">6.82</span></li>
+                                <li><span class="country">Somali</span><span class="value">6.12</span></li>
+                                <li><span class="country">Kongo Dem. Cum.</span><span class="value">5.96</span></li>
+                                <li><span class="country">Mali</span><span class="value">5.92</span></li>
+                                <li><span class="country">Çad</span><span class="value">5.79</span></li>
+                                <li><span class="country">Angola</span><span class="value">5.54</span></li>
+                                <li><span class="country">Burundi</span><span class="value">5.45</span></li>
+                                <li><span class="country">Nijerya</span><span class="value">5.42</span></li>
+                                <li><span class="country">Gambiya</span><span class="value">5.30</span></li>
+                                <li><span class="country">Burkina Faso</span><span class="value">5.23</span></li>
+                            </ul>
+                        </div>
+                        <div id="deaths-tab" class="tab-pane">
+                            <h4>En Yüksek Ölüm Oranları</h4>
+                            <ul id="deaths-ranking" class="ranking-list">
+                                <li><span class="country">Bulgaristan</span><span class="value">15.5</span></li>
+                                <li><span class="country">Letonya</span><span class="value">14.6</span></li>
+                                <li><span class="country">Ukrayna</span><span class="value">13.9</span></li>
+                                <li><span class="country">Litvanya</span><span class="value">13.8</span></li>
+                                <li><span class="country">Sırbistan</span><span class="value">13.2</span></li>
+                                <li><span class="country">Hırvatistan</span><span class="value">13.0</span></li>
+                                <li><span class="country">Romanya</span><span class="value">12.7</span></li>
+                                <li><span class="country">Macaristan</span><span class="value">12.6</span></li>
+                                <li><span class="country">Estonya</span><span class="value">11.9</span></li>
+                                <li><span class="country">Rusya</span><span class="value">11.6</span></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="sidebar-footer">
+                    <p>Veriler 1000 kişi başına düşen yıllık oran olarak gösterilmektedir.</p>
+                    <p>Kaynak: Dünya Bankası, 2023</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Ana içerik -->
+        <div class="main-content">
+            <div class="container">
+                <header>
+                    <h1>Son Günmüş Gibi Yaşa</h1>
+                    <p>Dünya nüfusu gerçek zamanlı istatistikleri</p>
+                </header>
+
+                <main>
+                    <div class="stats-container">
+                        <div class="stat-box births">
+                            <h2>Doğumlar <i class="fas fa-baby"></i></h2>
+                            <div class="counter" id="births-counter">0</div>
+                            <div class="rate" id="births-rate">Saniyede: 0</div>
+                            <div class="additional-stats">
+                                <div class="daily-stat" id="births-daily">Günlük: 0</div>
+                                <div class="monthly-stat" id="births-monthly">Aylık: 0</div>
+                            </div>
+                        </div>
+
+                        <div class="stat-box deaths">
+                            <h2>Ölümler <i class="fas fa-skull"></i></h2>
+                            <div class="counter" id="deaths-counter">0</div>
+                            <div class="rate" id="deaths-rate">Saniyede: 0</div>
+                            <div class="additional-stats">
+                                <div class="daily-stat" id="deaths-daily">Günlük: 0</div>
+                                <div class="monthly-stat" id="deaths-monthly">Aylık: 0</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="population-container">
+                        <h2>Dünya Nüfusu</h2>
+                        <div class="counter" id="population-counter">0</div>
+                        <div class="net-growth">
+                            <span>Net Artış: </span>
+                            <span id="net-growth">0</span>
+                        </div>
+                    </div>
+                    
+                    <!-- Görselleştirmeler Bölümü -->
+                    <div class="visualizations-container">
+                        <h2>Grafikler</h2>
+                        <div class="charts-grid">
+                            <!-- Doğum ve Ölüm Oranları Grafiği -->
+                            <div class="chart-box" onclick="showModal('birthDeath')">
+                                <h3>Doğum ve Ölüm Oranları</h3>
+                                <div class="chart-container">
+                                    <canvas id="birthDeathChart"></canvas>
+                                </div>
+                            </div>
+                            
+                            <!-- Nüfus Artışı Grafiği -->
+                            <div class="chart-box" onclick="showModal('populationGrowth')">
+                                <h3>Nüfus Artışı (Son 10 Dakika)</h3>
+                                <div class="chart-container">
+                                    <canvas id="populationGrowthChart"></canvas>
+                                </div>
+                            </div>
+                            
+                            <!-- Kıtalara Göre Nüfus Dağılımı -->
+                            <div class="chart-box" onclick="showModal('continentDistribution')">
+                                <h3>Kıtalara Göre Nüfus Dağılımı</h3>
+                                <div class="chart-container">
+                                    <canvas id="continentDistributionChart"></canvas>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </main>
+
+                <footer>
+                    <p>Veriler tahmini değerlerdir ve <a href="https://www.worldometers.info/" target="_blank">Worldometers</a> gibi kaynaklardan alınmıştır.</p>
+                    
+                    <!-- Felsefik Yazı Bölümü -->
+                    <div class="philosophy-section">
+                        <h3>Son Günmüş Gibi Yaşa</h3>
+                        <div class="quote">
+                            <p>"Her saniye, dünyada dört yeni hayat başlarken, iki hayat sona eriyor. Bu sayılar, hayatın hem ne kadar değerli hem de ne kadar geçici olduğunu hatırlatıyor. Bugün, son günün olsaydı, neyi farklı yapardın? Kime sarılır, kime teşekkür eder, hangi hayallerin peşinden koşardın?"</p>
+                            <p>"Zaman, sahip olduğumuz tek gerçek servettir ve hepimize eşit dağıtılmıştır. Ancak hiçbirimiz, hesabımızda ne kadar kaldığını bilmiyoruz. Bu yüzden her anı, son anınmış gibi yaşa; her karşılaşmayı son karşılaşmanmış gibi değerlendir; her gülümsemeyi, son gülümsemenmiş gibi paylaş."</p>
+                            <p>"Çünkü hayat, sayılardan ibaret değildir. Hayat, o sayılar arasında yarattığımız anlam ve bıraktığımız izlerdir. Son günmüş gibi yaşamak, aslında tam anlamıyla yaşamaktır."</p>
+                            <p class="author">- Berk Altın</p>
+                        </div>
+                    </div>
+                </footer>
+            </div>
+        </div>
+    </div>
+
+    <!-- Grafik Modal Penceresi -->
+    <div id="chart-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <h2 id="modal-title">Grafik Detayları</h2>
+            <div class="modal-chart-container">
+                <canvas id="modal-chart"></canvas>
+            </div>
+            <div class="chart-details" id="chart-details">
+                <!-- Grafik detayları burada görüntülenecek -->
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+    <script src="charts.js"></script>
+</body>
+</html> 

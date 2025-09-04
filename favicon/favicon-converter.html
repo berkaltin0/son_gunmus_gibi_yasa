@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Favicon Dönüştürücü</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background: linear-gradient(135deg, #c2e59c, #64b3f4);
+            min-height: 100vh;
+            color: #333;
+        }
+        .container {
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .favicon-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 30px 0;
+        }
+        .favicon {
+            width: 64px;
+            height: 64px;
+            display: block;
+        }
+        .instructions {
+            background-color: #f8f9fa;
+            padding: 15px;
+            border-radius: 5px;
+            border-left: 4px solid #64b3f4;
+        }
+        ol {
+            margin-top: 10px;
+            padding-left: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Favicon Dönüştürücü</h1>
+        
+        <div class="favicon-container">
+            <img src="favicon.svg" alt="Favicon" class="favicon" id="favicon">
+        </div>
+        
+        <div class="instructions">
+            <h2>Favicon'u ICO dosyasına dönüştürmek için:</h2>
+            <ol>
+                <li>Yukarıdaki favicon görseline sağ tıklayın ve "Resmi Farklı Kaydet" seçeneğini seçin</li>
+                <li>Görüntüyü PNG formatında kaydedin</li>
+                <li>Şu web sitelerinden birini kullanarak PNG'yi ICO'ya dönüştürün:
+                    <ul>
+                        <li><a href="https://convertio.co/png-ico/" target="_blank">Convertio</a></li>
+                        <li><a href="https://www.favicon-generator.org/" target="_blank">Favicon Generator</a></li>
+                        <li><a href="https://favicon.io/favicon-converter/" target="_blank">Favicon.io</a></li>
+                    </ul>
+                </li>
+                <li>Oluşturulan .ico dosyasını "favicon" klasörüne kaydedin</li>
+                <li>HTML dosyanızda favicon bağlantısını güncelleyin (otomatik olarak yapıldı)</li>
+            </ol>
+        </div>
+    </div>
+</body>
+</html> 
